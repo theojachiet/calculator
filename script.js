@@ -39,6 +39,7 @@ sixBtn.addEventListener('click', displayNumbers);
 sevenBtn.addEventListener('click', displayNumbers);
 eightBtn.addEventListener('click', displayNumbers);
 nineBtn.addEventListener('click', displayNumbers);
+dotBtn.addEventListener('click', displayDot);
 
 resetBtn.addEventListener('click', displayReset);
 backBtn.addEventListener('click', displayBack);
@@ -112,6 +113,16 @@ function displayEquals() {
         display.textContent = +parseFloat(result).toFixed(2);
     }
 
+}
+
+function displayDot() {
+    if (display.textContent.includes('.') || display.textContent == '' || display.textContent == operator) {
+        console.log('nope');
+        return;
+    } else {
+        console.log('yes');
+        display.textContent += '.';
+    }
 }
 
 function displayReset() {
