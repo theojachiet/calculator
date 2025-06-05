@@ -1,3 +1,5 @@
+const number = '01234567889';
+const operatorSymbol = '+-x/';
 //Creating buttons Variables
 const backBtn = document.querySelector('.backspace');
 const correctionBtn = document.querySelector('.correction');
@@ -40,46 +42,100 @@ nineBtn.addEventListener('click', displayNumbers);
 
 resetBtn.addEventListener('click', displayReset);
 
+addBtn.addEventListener('click', displayOperator);
+substractBtn.addEventListener('click', displayOperator);
+multiplyBtn.addEventListener('click', displayOperator);
+divideBtn.addEventListener('click', displayOperator);
+equalsBtn.addEventListener('click', displayEquals)
+
+
 //A and B are the two parts of the operation
-let a = 0;
-let b = 0;
+let a = '';
+let b = '';
 let operator = '';
+let result = '';
 
 function displayNumbers(event) {
-    display.textContent += event.target.textContent;
+    if (operatorSymbol.includes(display.textContent) && display.textContent !== '') {
+        displayClean();
+        display.textContent += event.target.textContent;
+    } else {
+        display.textContent += event.target.textContent;
+    }
+}
+
+function displayOperator(event) {
+    //case : operator is already there or there is nothing
+    if (display.textContent == '' || operatorSymbol.includes(display.textContent) && display.textContent.length == 1) {
+        console.log(display.textContent);
+        return;
+    }
+    //Case : there is already an operation going on
+    if (number.includes(display.textContent.at(-1)) && a !== '') {
+        if (result !== '') {
+            a = result;
+            b = '';
+            operator = event.target.textContent;
+            display.textContent = operator;
+        } else {
+            b = display.textContent;
+            result = +parseFloat(operate(a, b, operator)).toFixed(2);
+            display.textContent =  event.target.textContent;
+        }
+    } else if (number.includes(display.textContent.at(-1))) {
+        //case : first operation
+        a = display.textContent;
+        displayClean();
+        display.textContent = event.target.textContent;
+        operator = event.target.textContent;
+    }
+
+}
+
+function displayEquals() {
+    b = display.textContent;
+    displayClean();
+    result = operate(a, b, operator);
+    display.textContent = +parseFloat(result).toFixed(2);
 }
 
 function displayReset() {
+    display.textContent = '';
+    a = '';
+    b = '';
+    operator = '';
+    result = '';
+}
+
+function displayClean() {
     display.textContent = '';
 }
 
 function operate(a, b, operator) {
     switch (operator) {
-        case '+' :
+        case '+':
             return add(a, b);
-        case '-' :
+        case '-':
             return substract(a, b);
-        case '/' :
+        case '/':
             return divide(a, b);
-        case 'x' :
+        case 'x':
             return multiply(a, b);
     }
 }
 
 function add(a, b) {
-    return a + b;
+    return Number(a) + Number(b);
 }
 
 function substract(a, b) {
-    return a - b;
+    return Number(a) - Number(b);
 }
 
 function divide(a, b) {
-    return a / b;
+    return Number(a) / Number(b);
 }
 
 function multiply(a, b) {
-    return a * b;
+    return Number(a) * Number(b);
 }
-
-console.log(operate(4, 5, '/'));
