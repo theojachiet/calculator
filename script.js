@@ -56,7 +56,8 @@ let operator = '';
 let result = '';
 
 function displayNumbers(event) {
-    if (display.textContent == result && result !== '') {
+    if (display.textContent == result && result !== '' && typeof display.textContent == Number) {
+        //Reset screen if the user inputs numbers directly on top of the result
         console.log('reset')
         displayReset();
         displayClean();
@@ -98,10 +99,19 @@ function displayOperator(event) {
 }
 
 function displayEquals() {
-    b = display.textContent;
-    displayClean();
-    result = operate(a, b, operator);
-    display.textContent = +parseFloat(result).toFixed(2);
+    if (a === '') {
+        return;
+    }
+
+    if (operator === '/' && display.textContent === '0') {
+        display.textContent = 'BAD BITCH';
+    } else {
+        b = display.textContent;
+        displayClean();
+        result = operate(a, b, operator);
+        display.textContent = +parseFloat(result).toFixed(2);
+    }
+
 }
 
 function displayReset() {
