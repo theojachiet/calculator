@@ -41,6 +41,7 @@ eightBtn.addEventListener('click', displayNumbers);
 nineBtn.addEventListener('click', displayNumbers);
 
 resetBtn.addEventListener('click', displayReset);
+backBtn.addEventListener('click', displayBack);
 
 addBtn.addEventListener('click', displayOperator);
 substractBtn.addEventListener('click', displayOperator);
@@ -56,9 +57,8 @@ let operator = '';
 let result = '';
 
 function displayNumbers(event) {
-    if (display.textContent == result && result !== '' && typeof display.textContent == Number) {
+    if (display.textContent == result && result !== '') {
         //Reset screen if the user inputs numbers directly on top of the result
-        console.log('reset')
         displayReset();
         displayClean();
         display.textContent = event.target.textContent;
@@ -124,6 +124,14 @@ function displayReset() {
 
 function displayClean() {
     display.textContent = '';
+}
+
+function displayBack() {
+    if (display.textContent == result && result !== '') {
+        return;
+    } else {
+        display.textContent = display.textContent.slice(0, -1);
+    }
 }
 
 function operate(a, b, operator) {
