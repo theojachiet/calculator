@@ -1,5 +1,10 @@
 const number = '01234567889';
 const operatorSymbol = '+-x/';
+
+//Adding KB support
+const input = document;
+input.addEventListener('keyup', kbSupport);
+
 //Creating buttons Variables
 const backBtn = document.querySelector('.backspace');
 const correctionBtn = document.querySelector('.correction');
@@ -67,7 +72,7 @@ function displayNumbers(event) {
         displayClean();
         display.textContent += event.target.textContent;
     } else {
-        display.textContent += event.target.textContent;
+        display.textContent += event.target.textContent || event.key;
     }
 }
 
@@ -172,4 +177,63 @@ function divide(a, b) {
 
 function multiply(a, b) {
     return Number(a) * Number(b);
+}
+
+function kbSupport(e) {
+    switch (e.key) {
+        case '0':
+            zeroBtn.click();
+            break;
+        case '1':
+            oneBtn.click();
+            break;
+        case '2':
+            twoBtn.click();
+            break;
+        case '3':
+            threeBtn.click();
+            break;
+        case '4':
+            fourBtn.click();
+            break;
+        case '5':
+            fiveBtn.click();
+            break;
+        case '6':
+            sixBtn.click();
+            break;
+        case '7':
+            sevenBtn.click();
+            break;
+        case '8':
+            eightBtn.click();
+            break;
+        case '9':
+            nineBtn.click();
+            break;
+        case '.':
+            dotBtn.click();
+            break;
+        case '+':
+            addBtn.click();
+            break;
+        case '-':
+            substractBtn.click();
+            break;
+        case '*':
+            multiplyBtn.click();
+            break;
+        case '/':
+            divideBtn.click();
+            break;
+        case 'Backspace':
+            backBtn.click();
+            break;
+        case 'Enter':
+            equalsBtn.click();
+            break;
+        case 'Delete':
+            resetBtn.click();
+            break;    
+    }
 }
