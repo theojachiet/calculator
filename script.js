@@ -56,7 +56,12 @@ let operator = '';
 let result = '';
 
 function displayNumbers(event) {
-    if (operatorSymbol.includes(display.textContent) && display.textContent !== '') {
+    if (display.textContent == result && result !== '') {
+        console.log('reset')
+        displayReset();
+        displayClean();
+        display.textContent = event.target.textContent;
+    } else if (operatorSymbol.includes(display.textContent) && display.textContent !== '') {
         displayClean();
         display.textContent += event.target.textContent;
     } else {
@@ -80,7 +85,7 @@ function displayOperator(event) {
         } else {
             b = display.textContent;
             result = +parseFloat(operate(a, b, operator)).toFixed(2);
-            display.textContent =  event.target.textContent;
+            display.textContent = event.target.textContent;
         }
     } else if (number.includes(display.textContent.at(-1))) {
         //case : first operation
